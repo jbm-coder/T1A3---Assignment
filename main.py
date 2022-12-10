@@ -2,6 +2,9 @@ from stdiomask import getpass
 import hashlib
 import os
 clear = lambda: os.system('clear')
+from database import happy
+from random import random
+import time
 
 
 def main():
@@ -70,25 +73,35 @@ def Login():
     with open('userInfo.txt', 'r') as file:
         for line in file:
             line = line.split()
-            usersInfo.update({line[0]: line[1]})
-
+            usersInfo[line[0]] = line[1]
     while True:
         userName = input("Enter Your Name: ").title()
         userName = sanitizeName(userName)
-        if userName not in usersInfo:
-            print("You Are Not Registered")
+        userName = checkQuit(userName)
+        if userAlreadyExist(userName):
+            print("You Are Not Registered, Type Q to Return To Main Page")
             print()
         else:
             break
     while True:
         userPassword = getpass("Enter Your Password: ")
-        if not check_password_hash(userPassword, usersInfo[userName]):
+        if userAlreadyExist (userName, userPassword):
             print("Incorrect Password")
             print()
         else:
             break
     print()
     print("Logged In!")
+
+    ask()
+
+    
+
+def checkQuit(userName):
+    if userName == "q":
+        print("You have chose Quit, Returning back to Main Menu")
+        time.sleep(2)
+        main()
 
 def addUserInfo(userInfo: list):
     with open('userInfo.txt', 'a') as file:
@@ -129,8 +142,8 @@ def displayUserAlreadyExistMessage():
             break
 
 def sanitizeName(userName):
-    userName = userName.split()
-    userName = '-'.join(userName)
+    userName = userName.lower().split()
+    userName = ''.join(userName)
     return userName
 
 def hash_password(password):
@@ -139,5 +152,28 @@ def hash_password(password):
 def check_password_hash(password, hash):
     return hash_password(password) == hash
 
+##
+
+
+def ask():
+    emotions = ['Happy', 'Sad']
+    variable = input("How are you today?")
+
+
+    if emotions.lower().strip() == "happy":
+        number = random.random(0,5)
+
+        quote = happy [number]
+        print(quote)
+
+    else:
+        ask()
+
+
+
+def process():
+    ask()
+
+##
 
 main()
