@@ -3,7 +3,7 @@ import hashlib
 import os
 clear = lambda: os.system('clear')
 from database import happy
-from random import random
+import random
 import time
 
 
@@ -152,28 +152,16 @@ def hash_password(password):
 def check_password_hash(password, hash):
     return hash_password(password) == hash
 
-##
-
-
+### 
 def ask():
     emotions = ['Happy', 'Sad']
     variable = input("How are you today?")
 
-
-    if emotions.lower().strip() == "happy":
-        number = random.random(0,5)
-
-        quote = happy [number]
+    if variable == "happy":
+        random_happy = random.randrange(len(emotions))
+        quote = happy [random_happy]
         print(quote)
 
-    else:
-        ask()
 
-
-
-def process():
-    ask()
-
-##
 
 main()
