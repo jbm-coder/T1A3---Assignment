@@ -50,10 +50,11 @@ def register():
                 break
         while True:
             confirmPassword = getpass("Confirm Your Password: ")
+            checkQuitPassword(confirmPassword)
             if confirmPassword == userPassword:
                 break
             else:
-                print("Passwords Don't Match")
+                print("Incorrect - Retype your password or enter Q to quit")
                 print()
         if userAlreadyExist(userName, userPassword):
             while True:
@@ -92,17 +93,31 @@ def Login():
             break
     while True:
         userPassword = getpass("Enter Your Password: ")
+        checkQuitPassword(userPassword)
         if not userAlreadyExist(userName, userPassword):
-            print("Incorrect Password")
+            print("Incorrect - Retype your password or enter Q to quit")
             print()
         else:
             break
     print()
     print("Logged In!")
+    ask()
 
 def checkQuit(userName):
     if userName == "q":
         print("You have chose Quit, Returning back to Main Menu")
+        time.sleep(2)
+        main()
+
+def checkQuitPassword(userPassword):
+    if userPassword == "q":
+        print("You have chose to Quit, Returning back to Main Menu")
+        time.sleep(2)
+        main()
+
+def checkConfirmedPassword(confirmedPassword):
+    if confirmedPassword == "q":
+        print("You have chose to Quit, Returning back to Main Menu")
         time.sleep(2)
         main()
 
@@ -155,16 +170,10 @@ def hashPassword(password):
 def checkPasswordHash(password, hash):
     return hashPassword(password) == hash
 
-main()
-
-print ("on you last entry you were feeling" + lastEntry)
-
-initialQuestion = input("How are you today?\nChoose from the following: Happy, Sad, Angry, Depressed, Anxious\nPlease enter how your are feeling: ")
-
-lastEntry = initialQuestion
 
 
 def ask():
+    initialQuestion = input("How are you today?\nChoose from the following: Happy, Sad, Angry, Depressed, Anxious\nPlease enter how your are feeling: ")
     sanitizeVariable = initialQuestion.lower().strip()
 
     if sanitizeVariable == "happy":
@@ -177,4 +186,4 @@ def ask():
         print(Style.BRIGHT + Back.YELLOW + Fore.RED + "Please enter a valid response.")
         ask()
 
-ask()
+main()
