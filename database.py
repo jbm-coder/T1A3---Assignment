@@ -1,1 +1,2 @@
-happy = ["test1", "test2", "test3", "test4", "test5" ]
+happy = ["Today is a gift, and I embrace it with positivity.", "I begin each day with a grateful heart.", "I approach this day with joy and excitement.", "I hold the key to my own happiness.", "I am pure, positive energy.", "I feel healthy, joyful, and vibrant.", "I bring light with me wherever I go.", "I am filled with energy and excitement.",
+"Limitless joy is my birthright.", "I stand in the joy I create from within.", "I am radiant, beautiful, and thriving.", "I am creative, passionate, and inspired.", "I feel joyful, energetic, and alive.", "I allow the flow of positive energy to effortlessly move through me.", "I live a creative, vibrant, passionate life."]

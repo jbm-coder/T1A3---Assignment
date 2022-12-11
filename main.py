@@ -5,7 +5,13 @@ clear = lambda: os.system('clear')
 from database import happy
 import random
 import time
+from cfonts import render
+from colorama import init, Fore, Back, Style
+init(autoreset=True)
 
+output = render('Friendster', colors=['green', 'yellow'], align='center')
+print(output)
+time.sleep(2)
 
 def main():
     clear()
@@ -21,11 +27,11 @@ def main():
         if userChoice in ['1', '2']:
             break
     if userChoice == '1':
-        Register()
+        register()
     else:
         Login()
 
-def Register():
+def register():
     clear()
     print("REGISTER")
     print("--------")
@@ -54,15 +60,16 @@ def Register():
                 print()
                 error = input("You Are Already Registered.\n\nPress (T) To Try Again:\nPress (L) To Login: ").lower()
                 if error == 't':
-                    Register()
+                    register()
                     break
                 elif error == 'l':
                     Login()
                     break
-        addUserInfo([userName, hash_password(userPassword)])
+        addUserInfo([userName, hashPassword(userPassword)])
 
         print()
         print("Registered!")
+        ask()
 
 def Login():
     clear()
@@ -77,7 +84,8 @@ def Login():
     while True:
         userName = input("Enter Your Name: ").title()
         userName = sanitizeName(userName)
-        userName = checkQuit(userName)
+        checkQuit(userName)
+        print(userName)
         if userAlreadyExist(userName):
             print("You Are Not Registered, Type Q to Return To Main Page")
             print()
@@ -85,7 +93,7 @@ def Login():
             break
     while True:
         userPassword = getpass("Enter Your Password: ")
-        if userAlreadyExist (userName, userPassword):
+        if userAlreadyExist(userName, userPassword):
             print("Incorrect Password")
             print()
         else:
@@ -94,7 +102,6 @@ def Login():
     print("Logged In!")
 
     ask()
-
     
 
 def checkQuit(userName):
@@ -115,11 +122,12 @@ def userAlreadyExist(userName, userPassword=None):
         with open('userInfo.txt', 'r') as file:
             for line in file:
                 line = line.split()
+                #print(userName)
                 if line[0] == userName:
                     return True
         return False
     else:
-        userPassword = hash_password(userPassword)
+        userPassword = hashPassword(userPassword)
         usersInfo = {}
         with open('userInfo.txt', 'r') as file:
             for line in file:
@@ -135,7 +143,7 @@ def displayUserAlreadyExistMessage():
         print()
         error = input("You Are Already Registered.\n\nPress (T) To Try Again:\nPress (L) To Login: ").lower()
         if error == 't':
-            Register()
+            register()
             break
         elif error == 'l':
             Login()
@@ -144,24 +152,38 @@ def displayUserAlreadyExistMessage():
 def sanitizeName(userName):
     userName = userName.lower().split()
     userName = ''.join(userName)
+    print(userName)
     return userName
 
-def hash_password(password):
+def hashPassword(password):
     return hashlib.sha256(str.encode(password)).hexdigest()
 
-def check_password_hash(password, hash):
-    return hash_password(password) == hash
+def checkPasswordHash(password, hash):
+    return hashPassword(password) == hash
 
-### 
+###
+
 def ask():
-    emotions = ['Happy', 'Sad']
-    variable = input("How are you today?")
+    initialQuestion = input("How are you today?\nChoose from the following: Happy, Sad, Angry, Depressed, Anxious\nPlease enter how your are feeling: ")
+    sanitizeVariable = initialQuestion.lower().strip()
+    lastEntry = []
+    lastEntry.append(initialQuestion)
+    print(lastEntry)
 
-    if variable == "happy":
-        random_happy = random.randrange(len(emotions))
-        quote = happy [random_happy]
-        print(quote)
+    if sanitizeVariable == "happy":
+        quote = random.choice(happy)
+        print("\nThat is great! Here is a positive affirmation for you:")
+        print(Style.BRIGHT + Back.YELLOW + Fore.GREEN + f"{quote}")
+        print("Have a great day!\n")
+    else:
+        print(Style.BRIGHT + Back.YELLOW + Fore.RED + "**Invalid Entry**")
+        print(Style.BRIGHT + Back.YELLOW + Fore.RED + "Please enter a valid response.")
+        ask()
 
+
+
+
+    
 
 
 main()
