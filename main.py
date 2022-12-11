@@ -85,24 +85,20 @@ def Login():
         userName = input("Enter Your Name: ").title()
         userName = sanitizeName(userName)
         checkQuit(userName)
-        print(userName)
-        if userAlreadyExist(userName):
+        if not userAlreadyExist(userName):
             print("You Are Not Registered, Type Q to Return To Main Page")
             print()
         else:
             break
     while True:
         userPassword = getpass("Enter Your Password: ")
-        if userAlreadyExist(userName, userPassword):
+        if not userAlreadyExist(userName, userPassword):
             print("Incorrect Password")
             print()
         else:
             break
     print()
     print("Logged In!")
-
-    ask()
-    
 
 def checkQuit(userName):
     if userName == "q":
@@ -122,7 +118,6 @@ def userAlreadyExist(userName, userPassword=None):
         with open('userInfo.txt', 'r') as file:
             for line in file:
                 line = line.split()
-                #print(userName)
                 if line[0] == userName:
                     return True
         return False
@@ -152,7 +147,6 @@ def displayUserAlreadyExistMessage():
 def sanitizeName(userName):
     userName = userName.lower().split()
     userName = ''.join(userName)
-    print(userName)
     return userName
 
 def hashPassword(password):
@@ -161,14 +155,17 @@ def hashPassword(password):
 def checkPasswordHash(password, hash):
     return hashPassword(password) == hash
 
-###
+main()
+
+print ("on you last entry you were feeling" + lastEntry)
+
+initialQuestion = input("How are you today?\nChoose from the following: Happy, Sad, Angry, Depressed, Anxious\nPlease enter how your are feeling: ")
+
+lastEntry = initialQuestion
+
 
 def ask():
-    initialQuestion = input("How are you today?\nChoose from the following: Happy, Sad, Angry, Depressed, Anxious\nPlease enter how your are feeling: ")
     sanitizeVariable = initialQuestion.lower().strip()
-    lastEntry = []
-    lastEntry.append(initialQuestion)
-    print(lastEntry)
 
     if sanitizeVariable == "happy":
         quote = random.choice(happy)
@@ -180,10 +177,4 @@ def ask():
         print(Style.BRIGHT + Back.YELLOW + Fore.RED + "Please enter a valid response.")
         ask()
 
-
-
-
-    
-
-
-main()
+ask()
