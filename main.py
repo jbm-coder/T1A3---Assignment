@@ -41,6 +41,9 @@ def register():
         if userName != '':
             break
     userName = sanitizeName(userName)
+
+    checkQuit(userName)
+
     if userAlreadyExist(userName):
         displayUserAlreadyExistMessage()
     else:
@@ -70,7 +73,10 @@ def register():
 
         print()
         print("Registered!")
-        ask()
+        user_mood = read_file() # get the previous mood data of all the users
+        mood = ask() # ask for the user's mood
+        user_mood[userName] = ["1", mood] # add this user's name and mood to the dictionary
+        write_file(user_mood) # write the data to the file
 
 def Login():
     clear()
@@ -101,7 +107,57 @@ def Login():
             break
     print()
     print("Logged In!")
-    ask()
+
+    user_mood = read_file() # read and get the previous mood data of all the users
+
+    app_used = 0 # variable to keep record of how many times user used our application
+    mood_lst = [] # initializing the list to keep track of the current user's mood
+
+    # if the user data is in our dictionary
+    if userName in user_mood:
+        data = user_mood[userName] # ['5', 'happy', 'sad', 'angry', 'happy', 'happy'] get user data
+        app_used = int(data[0]) # get the numbers of tieme user used our data
+        mood_lst = user_mood[userName] # get the list of mood for this user
+
+        #if the pplication has been used more than 10 times, we reset all the data
+        if app_used >= 10:
+            print("Congrats you used our application 10 times")
+            app_used = 0
+            mood_lst = []
+        print(f"Hello {userName}, the last time you used our application you were feeling {data[-1]} ")
+
+    mood = ask()
+
+    count_mood = {} # dictionary to store the mood stats of this specific user
+
+    # if the application has been used 10 times, we calculate the stats
+    if app_used + 1 >= 10:
+        print("Congrats you used our application 10 times")
+        for prev_mood in user_mood[userName][1:]:
+            if prev_mood in count_mood:
+                count_mood[prev_mood] += 1
+            else:
+                count_mood[prev_mood] = 1
+        if mood in count_mood:
+            count_mood[mood] += 1
+        else:
+            count_mood[mood] = 1
+        
+        print("\nHere are the stats of your 10 entries:\n")
+        for myMood in count_mood:
+            print(f"{myMood}: {count_mood[myMood]}")
+
+
+    if len(mood_lst) == 0:
+        user_mood[userName] = mood_lst
+        user_mood[userName].append(str(app_used + 1))
+    else:
+        user_mood[userName][0] = str(app_used + 1)
+    user_mood[userName].append(mood)
+
+    write_file(user_mood)
+
+
 
 def checkQuit(userName):
     if userName == "q":
@@ -181,9 +237,37 @@ def ask():
         print("\nThat is great! Here is a positive affirmation for you:")
         print(Style.BRIGHT + Back.YELLOW + Fore.GREEN + f"{quote}")
         print("Have a great day!\n")
+        return sanitizeVariable
+
     else:
         print(Style.BRIGHT + Back.YELLOW + Fore.RED + "**Invalid Entry**")
         print(Style.BRIGHT + Back.YELLOW + Fore.RED + "Please enter a valid response.")
         ask()
+
+def write_file(user_mood):
+    """function to write the user mood data back to the file"""
+
+    file = open('usermood.txt', 'w') # open text file in write mode
+
+    # iterate through each value in our dictionary
+    for user in user_mood:
+        file.write(user + " " + " ". join(user_mood[user]) + "\n") # write the data in specific format
+
+    file.close()
+
+
+def read_file():
+    """function to read the previous mood of all the users and add them to the dictionary"""
+
+    file = open('usermood.txt', 'r') # open the file in read mode
+    user_mood = {} # dictionary to store the user mood for their last entries if any
+     # iterate though all the lines in the file
+    for line in file:
+        temp = line.split() # split the lines on the spacing
+        user_mood[temp[0]] = temp[1:] # add the user mood plus their previous entry number in the dictionary
+    
+    file.close() # close the file
+    return user_mood # return the data
+
 
 main()
