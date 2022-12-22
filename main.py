@@ -116,12 +116,12 @@ def Login():
     # if the user data is in our dictionary
     if userName in user_mood:
         data = user_mood[userName] # ['5', 'happy', 'sad', 'angry', 'happy', 'happy'] get user data
-        app_used = int(data[0]) # get the numbers of tieme user used our data
+        app_used = int(data[0]) # get the numbers of time user used our data
         mood_lst = user_mood[userName] # get the list of mood for this user
 
-        #if the pplication has been used more than 10 times, we reset all the data
+        #if the application has been used more than 10 times, we reset all the data
         if app_used >= 10:
-            print("Congrats you used our application 10 times")
+            print(f"Nice job {userName} you used Friendster 10 times. Keep up the good work!")
             app_used = 0
             mood_lst = []
         print(f"Hello {userName}, the last time you used our application you were feeling {data[-1]} ")
@@ -132,7 +132,7 @@ def Login():
 
     # if the application has been used 10 times, we calculate the stats
     if app_used + 1 >= 10:
-        print("Congrats you used our application 10 times")
+        print(f"Congrats {userName} you have used Friendster 10 times")
         for prev_mood in user_mood[userName][1:]:
             if prev_mood in count_mood:
                 count_mood[prev_mood] += 1
