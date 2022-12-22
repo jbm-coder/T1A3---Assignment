@@ -2,7 +2,7 @@ from stdiomask import getpass
 import hashlib
 import os
 clear = lambda: os.system('clear')
-from database import happy 
+from database import happy, sad, angry, depressed, anxious
 import random
 import time
 from cfonts import render
@@ -232,9 +232,9 @@ def ask():
     initialQuestion = input("How are you today?\nChoose from the following: Happy, Sad, Angry, Depressed, Anxious\nPlease enter how your are feeling: ")
     sanitizeVariable = initialQuestion.lower().strip()
 
-    if sanitizeVariable == "happy":
-        quote = random.choice(happy)
-        print("\nThat is great! Here is a positive affirmation for you:")
+    if sanitizeVariable == happy or sad or angry or depressed or anxious:
+        quote = random.choice(happy or sad or angry or depressed or anxious)
+        print("\nThank you for your entry. Here is a positive affirmation for you:")
         print(Style.BRIGHT + Back.YELLOW + Fore.GREEN + f"{quote}")
         print("Have a great day!\n")
         return sanitizeVariable
