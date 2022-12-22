@@ -2,7 +2,7 @@ from stdiomask import getpass
 import hashlib
 import os
 clear = lambda: os.system('clear')
-from database import happy
+from database import happy 
 import random
 import time
 from cfonts import render
