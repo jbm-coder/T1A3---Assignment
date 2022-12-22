@@ -13,7 +13,7 @@ output = render('Friendster', colors=['green', 'yellow'], align='center')
 print(output)
 time.sleep(2)
 
-def main():
+def main(): # main menu
     clear()
     print("MAIN MENU")
     print("---------")
@@ -31,7 +31,7 @@ def main():
     else:
         Login()
 
-def register():
+def register(): #registration function
     clear()
     print("REGISTER")
     print("--------")
@@ -78,7 +78,7 @@ def register():
         user_mood[userName] = ["1", mood] # add this user's name and mood to the dictionary
         write_file(user_mood) # write the data to the file
 
-def Login():
+def Login(): # existing user login function
     clear()
     print("LOGIN")
     print("-----")
@@ -159,32 +159,32 @@ def Login():
 
 
 
-def checkQuit(userName):
+def checkQuit(userName): # quit and go back to main page
     if userName == "q":
         print("You have chose Quit, Returning back to Main Menu")
         time.sleep(2)
         main()
 
-def checkQuitPassword(userPassword):
+def checkQuitPassword(userPassword): # quit and go back to main page
     if userPassword == "q":
         print("You have chose to Quit, Returning back to Main Menu")
         time.sleep(2)
         main()
 
-def checkConfirmedPassword(confirmedPassword):
+def checkConfirmedPassword(confirmedPassword): # quit and go back to main page
     if confirmedPassword == "q":
         print("You have chose to Quit, Returning back to Main Menu")
         time.sleep(2)
         main()
 
-def addUserInfo(userInfo: list):
+def addUserInfo(userInfo: list): #add user information to database
     with open('userInfo.txt', 'a') as file:
         for info in userInfo:
             file.write(info)
             file.write(' ')
         file.write('\n')
 
-def userAlreadyExist(userName, userPassword=None):
+def userAlreadyExist(userName, userPassword=None): # check if user already exists in database and return True if user exists, else False
     if userPassword == None:
         with open('userInfo.txt', 'r') as file:
             for line in file:
@@ -204,7 +204,7 @@ def userAlreadyExist(userName, userPassword=None):
             return False
         return usersInfo[userName] == userPassword
 
-def displayUserAlreadyExistMessage():
+def displayUserAlreadyExistMessage(): #display message indicating that the user already exists
     while True:
         print()
         error = input("You Are Already Registered.\n\nPress (T) To Try Again:\nPress (L) To Login: ").lower()
@@ -215,12 +215,12 @@ def displayUserAlreadyExistMessage():
             Login()
             break
 
-def sanitizeName(userName):
+def sanitizeName(userName): # remove any invalid characters from user name and return sanitized user name
     userName = userName.lower().split()
     userName = ''.join(userName)
     return userName
 
-def hashPassword(password):
+def hashPassword(password): # hash user password and return hashed password
     return hashlib.sha256(str.encode(password)).hexdigest()
 
 def checkPasswordHash(password, hash):
@@ -228,7 +228,7 @@ def checkPasswordHash(password, hash):
 
 
 
-def ask():
+def ask(): # prompt user for their current mood and return user's mood
     initialQuestion = input("How are you today?\nChoose from the following: Happy, Sad, Angry, Depressed, Anxious\nPlease enter how your are feeling: ")
     sanitizeVariable = initialQuestion.lower().strip()
 
@@ -244,8 +244,7 @@ def ask():
         print(Style.BRIGHT + Back.YELLOW + Fore.RED + "Please enter a valid response.")
         ask()
 
-def write_file(user_mood):
-    """function to write the user mood data back to the file"""
+def write_file(user_mood): # write mood data to file
 
     file = open('usermood.txt', 'w') # open text file in write mode
 
@@ -256,7 +255,7 @@ def write_file(user_mood):
     file.close()
 
 
-def read_file():
+def read_file(): # read mood data from file and return mood data
     """function to read the previous mood of all the users and add them to the dictionary"""
 
     file = open('usermood.txt', 'r') # open the file in read mode
