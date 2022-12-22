@@ -4,4 +4,5 @@ baba 2 happy sad
 junaid 1 happy
 qwert 1 happy
 2345 10 happy sad angry sad happy depressed sad angry depressed happy
-rose 2 happy sad
+rose 3 happy sad happy
+friendster 1 happy
