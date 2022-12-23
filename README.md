@@ -29,12 +29,12 @@ See below flow chart of how the app works.
 ![Screenshot of my app flow chart](/image/feauture1.PNG)
 
 - Feature 2
-<br>User mood inputs outputs are saved on external file and required output positive affirmation are accessed from an external file.
+<br>User mood entries are saved onto an external file and the app produces a positive affirmation based on the user's entry which is accessed from an external file.
 
 ![Screenshot of my app flow chart](/image/feauture2.1.PNG)
 ![Screenshot of my app flow chart](/image/feauture2.2.PNG)
 
 - Feature 3
-<br>User input up to 10 entries are saved and user stats displayed to customer after their 10th entry.
+<br>User inputs are saved into a list and the app collects up to 10 entries. The app uses this information and will provide the user the stats of their last 10 entries.
 
 ![Screenshot of my app flow chart](/image/feauture3.PNG)
