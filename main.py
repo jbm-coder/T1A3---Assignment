@@ -13,7 +13,7 @@ output = render('Friendster', colors=['green', 'yellow'], align='center')
 print(output)
 time.sleep(2)
 
-def main(): # main menu
+def main():
     clear()
     print("MAIN MENU")
     print("---------")
@@ -31,7 +31,7 @@ def main(): # main menu
     else:
         Login()
 
-def register(): #registration function
+def register():
     clear()
     print("REGISTER")
     print("--------")
@@ -78,7 +78,7 @@ def register(): #registration function
         user_mood[userName] = ["1", mood] # add this user's name and mood to the dictionary
         write_file(user_mood) # write the data to the file
 
-def Login(): # existing user login function
+def Login():
     clear()
     print("LOGIN")
     print("-----")
@@ -116,12 +116,12 @@ def Login(): # existing user login function
     # if the user data is in our dictionary
     if userName in user_mood:
         data = user_mood[userName] # ['5', 'happy', 'sad', 'angry', 'happy', 'happy'] get user data
-        app_used = int(data[0]) # get the numbers of time user used our data
+        app_used = int(data[0]) # get the numbers of tieme user used our data
         mood_lst = user_mood[userName] # get the list of mood for this user
 
-        #if the application has been used more than 10 times, we reset all the data
+        #if the pplication has been used more than 10 times, we reset all the data
         if app_used >= 10:
-            print(f"Nice job {userName} you used Friendster 10 times. Keep up the good work!")
+            print("Congrats you used our application 10 times")
             app_used = 0
             mood_lst = []
         print(f"Hello {userName}, the last time you used our application you were feeling {data[-1]} ")
@@ -132,7 +132,7 @@ def Login(): # existing user login function
 
     # if the application has been used 10 times, we calculate the stats
     if app_used + 1 >= 10:
-        print(f"Congrats {userName} you have used Friendster 10 times")
+        print("Congrats you used our application 10 times")
         for prev_mood in user_mood[userName][1:]:
             if prev_mood in count_mood:
                 count_mood[prev_mood] += 1
@@ -159,32 +159,32 @@ def Login(): # existing user login function
 
 
 
-def checkQuit(userName): # quit and go back to main page
+def checkQuit(userName):
     if userName == "q":
         print("You have chose Quit, Returning back to Main Menu")
         time.sleep(2)
         main()
 
-def checkQuitPassword(userPassword): # quit and go back to main page
+def checkQuitPassword(userPassword):
     if userPassword == "q":
         print("You have chose to Quit, Returning back to Main Menu")
         time.sleep(2)
         main()
 
-def checkConfirmedPassword(confirmedPassword): # quit and go back to main page
+def checkConfirmedPassword(confirmedPassword):
     if confirmedPassword == "q":
         print("You have chose to Quit, Returning back to Main Menu")
         time.sleep(2)
         main()
 
-def addUserInfo(userInfo: list): #add user information to database
+def addUserInfo(userInfo: list):
     with open('userInfo.txt', 'a') as file:
         for info in userInfo:
             file.write(info)
             file.write(' ')
         file.write('\n')
 
-def userAlreadyExist(userName, userPassword=None): # check if user already exists in database and return True if user exists, else False
+def userAlreadyExist(userName, userPassword=None):
     if userPassword == None:
         with open('userInfo.txt', 'r') as file:
             for line in file:
@@ -204,7 +204,7 @@ def userAlreadyExist(userName, userPassword=None): # check if user already exist
             return False
         return usersInfo[userName] == userPassword
 
-def displayUserAlreadyExistMessage(): #display message indicating that the user already exists
+def displayUserAlreadyExistMessage():
     while True:
         print()
         error = input("You Are Already Registered.\n\nPress (T) To Try Again:\nPress (L) To Login: ").lower()
@@ -215,12 +215,12 @@ def displayUserAlreadyExistMessage(): #display message indicating that the user 
             Login()
             break
 
-def sanitizeName(userName): # remove any invalid characters from user name and return sanitized user name
+def sanitizeName(userName):
     userName = userName.lower().split()
     userName = ''.join(userName)
     return userName
 
-def hashPassword(password): # hash user password and return hashed password
+def hashPassword(password):
     return hashlib.sha256(str.encode(password)).hexdigest()
 
 def checkPasswordHash(password, hash):
@@ -228,7 +228,7 @@ def checkPasswordHash(password, hash):
 
 
 
-def ask(): # prompt user for their current mood and return user's mood
+def ask():
     initialQuestion = input("How are you today?\nChoose from the following: Happy, Sad, Angry, Depressed, Anxious\nPlease enter how your are feeling: ")
     sanitizeVariable = initialQuestion.lower().strip()
 
@@ -244,7 +244,8 @@ def ask(): # prompt user for their current mood and return user's mood
         print(Style.BRIGHT + Back.YELLOW + Fore.RED + "Please enter a valid response.")
         ask()
 
-def write_file(user_mood): # write mood data to file
+def write_file(user_mood):
+    """function to write the user mood data back to the file"""
 
     file = open('usermood.txt', 'w') # open text file in write mode
 
@@ -255,7 +256,7 @@ def write_file(user_mood): # write mood data to file
     file.close()
 
 
-def read_file(): # read mood data from file and return mood data
+def read_file():
     """function to read the previous mood of all the users and add them to the dictionary"""
 
     file = open('usermood.txt', 'r') # open the file in read mode

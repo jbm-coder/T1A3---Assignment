@@ -1,9 +1,7 @@
 jonas 2 happy happy
 benz 2 sad happy
-baba 2 happy sad
+baba 1 sad
 junaid 1 happy
 qwert 1 happy
 2345 10 happy sad angry sad happy depressed sad angry depressed happy
-rose 3 happy sad happy
-paul 1 happy
-greg 1 happy
+rose 10 happy happy happy happy happy happy happy happy happy happy
