@@ -4,16 +4,17 @@
 
 ## Jonas Manalang
 
-[Jonas Manalang Profile Website](https://jbm-coder.com/)
-
-[Github Repo](https://github.com/jbm-coder/Assignment1)
+[Github Repo](hhttps://github.com/jbm-coder/T1A3---Assignment.git)
 
 [Presentation Video](https://youtu.be/Ffp1SId6d74)
 
 ## Description
-### The Purpose
 
-The purpose of my profile website is to introduce myself to prospective employers and allow them to get to know me personally and professionally whilst also being able to showcase my skillset and my portfolio of work.
+My app checks on user mood and provides a positive affirmation after entry.
+
+See below flow chart of how the app works.
+
+![Screenshot of my blog page](/image/FlowChart.PNG)
 
 ### Functionality/Features
 
