@@ -13,7 +13,7 @@ output = render('Friendster', colors=['green', 'yellow'], align='center')
 print(output)
 time.sleep(2)
 
-def main(): # main menu
+def main():
     clear()
     print("MAIN MENU")
     print("---------")
@@ -21,17 +21,17 @@ def main(): # main menu
     print("1 - Register")
     print("2 - Login")
     print()
-    while True: # choice loop
+    while True:
         print()
         userChoice = input("Choose An Option: ")
         if userChoice in ['1', '2']:
             break
-    if userChoice == '1': # call register function
+    if userChoice == '1':
         register()
     else:
-        Login() # call login function
+        Login()
 
-def register(): # register menu
+def register():
     clear()
     print("REGISTER")
     print("--------")
@@ -42,7 +42,7 @@ def register(): # register menu
             break
     userName = sanitizeName(userName)
 
-    checkQuit(userName) # if user wants to quit
+    checkQuit(userName)
 
     if userAlreadyExist(userName):
         displayUserAlreadyExistMessage()
@@ -78,7 +78,7 @@ def register(): # register menu
         user_mood[userName] = ["1", mood] # add this user's name and mood to the dictionary
         write_file(user_mood) # write the data to the file
 
-def Login(): # login menu
+def Login():
     clear()
     print("LOGIN")
     print("-----")
@@ -91,7 +91,7 @@ def Login(): # login menu
     while True:
         userName = input("Enter Your Name: ").title()
         userName = sanitizeName(userName)
-        checkQuit(userName) # if user wants to quit
+        checkQuit(userName)
         if not userAlreadyExist(userName):
             print("You Are Not Registered, Type Q to Return To Main Page")
             print()
@@ -99,7 +99,7 @@ def Login(): # login menu
             break
     while True:
         userPassword = getpass("Enter Your Password: ")
-        checkQuitPassword(userPassword) # if user wants to quit
+        checkQuitPassword(userPassword)
         if not userAlreadyExist(userName, userPassword):
             print("Incorrect - Retype your password or enter Q to quit")
             print()
@@ -159,32 +159,32 @@ def Login(): # login menu
 
 
 
-def checkQuit(userName): # if user wants to quit
+def checkQuit(userName):
     if userName == "q":
         print("You have chose Quit, Returning back to Main Menu")
         time.sleep(2)
         main()
 
-def checkQuitPassword(userPassword): # if user wants to quit
+def checkQuitPassword(userPassword):
     if userPassword == "q":
         print("You have chose to Quit, Returning back to Main Menu")
         time.sleep(2)
         main()
 
-def checkConfirmedPassword(confirmedPassword): # if user wants to quit
+def checkConfirmedPassword(confirmedPassword):
     if confirmedPassword == "q":
         print("You have chose to Quit, Returning back to Main Menu")
         time.sleep(2)
         main()
 
-def addUserInfo(userInfo: list): #  add user information to database
+def addUserInfo(userInfo: list):
     with open('userInfo.txt', 'a') as file:
         for info in userInfo:
             file.write(info)
             file.write(' ')
         file.write('\n')
 
-def userAlreadyExist(userName, userPassword=None): # check if user already exists in database. Return True if user exists, else False
+def userAlreadyExist(userName, userPassword=None):
     if userPassword == None:
         with open('userInfo.txt', 'r') as file:
             for line in file:
@@ -204,7 +204,7 @@ def userAlreadyExist(userName, userPassword=None): # check if user already exist
             return False
         return usersInfo[userName] == userPassword
 
-def displayUserAlreadyExistMessage(): # display message indicating that the user already exists
+def displayUserAlreadyExistMessage():
     while True:
         print()
         error = input("You Are Already Registered.\n\nPress (T) To Try Again:\nPress (L) To Login: ").lower()
@@ -215,12 +215,12 @@ def displayUserAlreadyExistMessage(): # display message indicating that the user
             Login()
             break
 
-def sanitizeName(userName): # remove any invalid characters from user name and return sanitized user name
+def sanitizeName(userName):
     userName = userName.lower().split()
     userName = ''.join(userName)
     return userName
 
-def hashPassword(password): # hash user password and return hashed password
+def hashPassword(password):
     return hashlib.sha256(str.encode(password)).hexdigest()
 
 def checkPasswordHash(password, hash):
@@ -228,7 +228,7 @@ def checkPasswordHash(password, hash):
 
 
 
-def ask(): # prompt user for their current mood and return user's mood
+def ask():
     initialQuestion = input("How are you today?\nChoose from the following: Happy, Sad, Angry, Depressed, Anxious\nPlease enter how your are feeling: ")
     sanitizeVariable = initialQuestion.lower().strip()
 
@@ -244,7 +244,7 @@ def ask(): # prompt user for their current mood and return user's mood
         print(Style.BRIGHT + Back.YELLOW + Fore.RED + "Please enter a valid response.")
         ask()
 
-def write_file(user_mood): # write mood data to file
+def write_file(user_mood):
     """function to write the user mood data back to the file"""
 
     file = open('usermood.txt', 'w') # open text file in write mode
@@ -256,7 +256,7 @@ def write_file(user_mood): # write mood data to file
     file.close()
 
 
-def read_file(): # read mood data from file and return mood data
+def read_file():
     """function to read the previous mood of all the users and add them to the dictionary"""
 
     file = open('usermood.txt', 'r') # open the file in read mode
