@@ -12,7 +12,7 @@
 
 ## Description
 
-My app checks on a user's mood.
+My app is called Friendster. The app checks on a user's current mood.
 
 The user is prompted to input from one of the preset moods and the Friendster app will provide the user a positive affirmation after entry.
 
@@ -24,10 +24,10 @@ See below flow chart of how the app works.
 ## App Features
 
 - Feature 1
-User registration is saved on an external file and user passwords are hashed/encrypted.
+<br>User registration is saved on an external file and user passwords are hashed/encrypted.
 
 - Feature 2
-User mood inputs outputs are saved on external file and required output positive affirmation are accessed from an external file.
+<br>User mood inputs outputs are saved on external file and required output positive affirmation are accessed from an external file.
 
 - Feature 3
-User input up to 10 entries are saved and user stats displayed to customer after their 10th entry.
+<br>User input up to 10 entries are saved and user stats displayed to customer after their 10th entry.
